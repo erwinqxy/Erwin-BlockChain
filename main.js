@@ -34,11 +34,36 @@ class BlockChain{
         newBlock.hash = newBlock.calculateHash(); // always need to calculate new hash 
         this.chain.push(newBlock);
     }
+
+    // check validity chain 
+    isChainValid() {
+        for (let i =1; i < this.chain.length; i++) {
+            const currentBlock = this.chain[i];
+            const previousBlock = this.chain[i - 1];
+
+            if (currentBlock.hash !== currentBlock.calculateHash()) {
+                return false;
+            }
+
+            if (currentBlock.previousHash !== previousBlock.hash) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
+// TEST CASES 
 let erwinCoin = new BlockChain();
 erwinCoin.addBlock(new Block(1, "03/03/2020", {amount: 1000}));
 erwinCoin.addBlock(new Block(2, "03/03/2020", {amount: 4000}));
 
 // view how block chain look like 
 console.log(JSON.stringify(erwinCoin, null, 4));
+
+// call can check the validity of the chain
+console.log('Is blockchain valid? ' + erwinCoin.isChainValid());
+
+// tampering 
+erwinCoin.chain[1].data = {amount: 100};
+console.log('Is blockchain valid? ' + erwinCoin.isChainValid());
