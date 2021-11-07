@@ -20,6 +20,7 @@ class BlockChain{
         this.chain = [this.createGenesisBlock()];
     }
 
+    // the first block in the chain
     createGenesisBlock() {
         return new Block(0, "01/01/2020", "Genesis Block", "0");
     }
@@ -36,8 +37,8 @@ class BlockChain{
 }
 
 let erwinCoin = new BlockChain();
-erwinCoin.addBlock(new Block(1, "03/03/2020", {amount: 4}));
-erwinCoin.addBlock(new Block(2, "03/03/2020", {amount: 5}));
+erwinCoin.addBlock(new Block(1, "03/03/2020", {amount: 1000}));
+erwinCoin.addBlock(new Block(2, "03/03/2020", {amount: 4000}));
 
 // view how block chain look like 
 console.log(JSON.stringify(erwinCoin, null, 4));
